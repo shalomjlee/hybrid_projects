@@ -17,6 +17,7 @@ function setBgtoBody() {
 }
 
 
+
 function setActiveSlide() {
     arraySlides.forEach((slide) => {
         slide.classList.remove('active')
@@ -75,10 +76,12 @@ function showMovies(movies) {
         const movieEl = document.createElement('div')
         // movieEl.classList.add('movie')
         movieEl.classList.add('slide')
+        movieEl.classList.add('contain')
         movieEl.style.backgroundImage = `url('${IMG_PATH + poster_path}')`
         slideContainer.appendChild(movieEl)
         console.log(movieEl)
         arraySlides.push(movieEl)
+
     }
 )}
 
