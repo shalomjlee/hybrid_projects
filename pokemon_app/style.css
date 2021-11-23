@@ -90,17 +90,7 @@ main {
     font-weight: bold;
 }
 
-.pokemon-info span.green {
-    color: lightgreen;
-}
 
-.pokemon-info span.orange{
-    color:orange;
-}
-
-.pokemon-info span.red{
-    color:red;
-}
 
 .overview {
     background-color: #fff;

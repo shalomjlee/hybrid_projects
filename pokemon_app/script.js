@@ -1,13 +1,9 @@
-const API_URL= "https://pokeapi.co/api/v2/pokemon"
-
+const API_URL= "https://pokeapi.co/api/v2/pokemon?limit=151"
 const POKE_URL = "https://pokeapi.co/api/v2/pokemon/"
-
-const FLAVOR_URL = "https://pokeapi.co/api/v2/pokemon-species/1"
-
+const FLAVOR_URL = "https://pokeapi.co/api/v2/pokemon-species/"
 const IMG_PATH = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
-
-
 const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3a145433fb23bddd05abd76c948de72&query8="'
+
 
 const main = document.getElementById('main')
 const form = document.getElementById('form')
@@ -15,7 +11,7 @@ const search = document.getElementById('search')
 
 
 
-getDescription(FLAVOR_URL)
+// getDescription(FLAVOR_URL)
 
 async function getDescription(url) {
 
@@ -25,16 +21,9 @@ async function getDescription(url) {
     // console.log(data.flavor_text)
 }
 
-
 function showSummary(pokemon_descr) {
-    // console.log(pokemon_descr)
-    // let index = 1
-
     for (const flavor of pokemon_descr) {
-        // console.log(flavor.flavor_text)
         if (flavor.language.name ==="en") {
-
-            // console.log(flavor.flavor_text)
             return flavor.flavor_text
         }
     }
@@ -65,20 +54,23 @@ async function getType(url) {
 
 async function showPokemons(pokemons) {
 
-    let description = await getDescription(FLAVOR_URL)
-
+    
     // console.log(pokemons)
-
+    
     main.innerHTML = ''
-    index = 0
-    pokemons.forEach((pokemonData) => {
+    let index = 0
+    await pokemons.forEach((pokemonData) => {
         index++
+        let description = getDescription(FLAVOR_URL + parseInt(index)).then((res)=>{return res})
+        // console.log(description)
         let url = pokemonData.url
+        
         let types = []
+        console.log(types)
         let att = getType(url)
         .then((res) =>{
             // console.log(res);
-            for (let i = 0; i < res.length; i++) {
+        for (let i = 0; i < res.length; i++) {
                 typeCast = res[i].type.name
                 types.push(typeCast)
                 // console.log(types)
@@ -86,61 +78,95 @@ async function showPokemons(pokemons) {
             return types
         })
         .catch((e) => console.log(e))
-        
         const name = pokemonData.name
+        const capitalName = name.charAt(0).toUpperCase() + name.slice(1);
         const pokeEl = document.createElement('div')
         pokeEl.classList.add('pokemon')
-        pokeEl.innerHTML = 
+        // console.log(index)
+        pokeEl.setAttribute('id', index)
+
+        //  let over = document.getElementById(index).addEventListener('mouseover', function(event) {
+        //      alert(event.touches.length);
+        //  }, false)
+
+        console.log(pokeEl)
+
+        pokeEl.classList.add('image')
+
+        let pokeImage = document.createElement('img')
+        pokeImage.srcset=`${IMG_PATH + parseInt(index) }.png`
+
+
+        let typeClass = document.createElement('h3');
+        typeClass.classList.add('poke-name')
+        typeClass.innerText = `${capitalName}`
+        
+        // console.log(typeClass)
+        pokeEl.append(pokeImage)
+        pokeEl.append(typeClass)
+        
+        pokeOverview = document.createElement('div')
+
+        pokeOverview.classList.add('overview')
+        pokeOverview.innerHTML = `
+        <h3>Overview </h3>
+        <h4> ${description}
+        
         `
-        <img src="${IMG_PATH + parseInt(index) }.png" alt="${name}">
+        pokeEl.append(pokeOverview)
+
+
+
+        // pokeEl.innerHTML = 
+        // `
+       
     
-            <div class="movie-info">
-                <h3 class="poke-name">${name} ${att[0]} </h3>
-                <h2 class="poke-name">  </h2>
-            </div>
-            <div class="overview">
-                <h3>Overview</h3>
-                ${types}    
-            </div>
-        `
+        //     <div class="pokemon-info">
+        //         <h3 class="poke-name">${name} ${types} </h3>
+        //         <h2 class="poke-name">  </h2>
+        //     </div>
+        //     <div class="overview">
+        //         <h3>Overview</h3>
+        //         ${types}    
+        //     </div>
+        // `
         // console.log(types)
         main.appendChild(pokeEl)
-        // console.log(main)
-        // console.log(IMG_PATH + parseInt(index+1))
+
     })
 }
 
 
 
-
-
-
-
-
+function hoverHandler(e) {
+    if(e.type == 'mouseover') {
+        alert('you hovered')
+    }
+}
 
 //this is specifically for the search bar up top to find movies based on whats searched
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault()
+// form.addEventListener('submit', (event) => {
+//     event.preventDefault()
 
-    const searchTerm = search.value
+//     const searchTerm = search.value
 
-    if(searchTerm && searchTerm !=="") {
-        getMovies(SEARCH_API + searchTerm)
-        console.log(SEARCH_API + searchTerm)
-        search.value = ''
-    } else {
-        window.location.reload()
-    }
-})
+//     if(searchTerm && searchTerm !=="") {
+//         getMovies(SEARCH_API + searchTerm)
+//         console.log(SEARCH_API + searchTerm)
+//         search.value = ''
+//     } else {
+//         window.location.reload()
+//     }
+// })
 
 
-function getClassByRate(vote) {
-    if(vote >= 8) {
-        return 'green'
-    } else if (vote >= 5) {
-        return 'orange'
-    } else {
-        return 'red'
-    }
-}
+// function getClassByRate(vote) {
+//     if(vote >= 8) {
+//         return 'green'
+//     } else if (vote >= 5) {
+//         return 'orange'
+//     } else {
+//         return 'red'
+//     }
+// }
