@@ -68,12 +68,15 @@ async function getMovies(url) {
     const data = await res.json()
 
     showMovies(data.results)
+    
 }
 
 function showMovies(movies) {
+    console.log(movies)
     movies.forEach((movie) => {
         const { title, poster_path, vote_average, overview} = movie
         const movieEl = document.createElement('div')
+      
         // movieEl.classList.add('movie')
         movieEl.classList.add('slide')
         movieEl.classList.add('contain')
