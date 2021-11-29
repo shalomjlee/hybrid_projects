@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Pokedex</title>
+  </head>
+  <body>
+    <nav class="active" id="nav">
+        <ul>
+            <li><a href="/index.html">Home</a>
+            </li>
+            <li><a href="/login.html">Login</a>
+            </li>
+            <li><a href="/filter.html">Filter</a>
+            </li>
+        </ul>
+        <button class="icon" id="toggle">
+            <div class="line line1"></div>
+            <div class="line line2"></div>
+        </button>
+    </nav>
+    <div class="container" >
+      
+      <header class="header" id="pokedex">
+          <!-- <button class="poke-icon" id="pokeoggle" onClick="myFunction()">
+              <div class="pokeline pokeline1"></div>
+              <div class="pokeline pokeline2"></div>
+          </button> -->
+
+          <h4 class="title">Find Your Pokemon!</h4>
+          <small class="subtitle">Search by name</small>
+          <input type="text" id="filter" placeholder="Search">
+        </header>
+  
+        <ul id="result" class="user-list">
+          <li>
+            <h3>Loading...</h3>
+          </li>
+        </ul>
+        
+      </div>
+    <h1>The Kanto Pokedex</h1>
+    <div class="poke-container" id="poke-container"></div>
+
+    <!-- Design inspired by this Dribbble shot: https://dribbble.com/shots/5611109--Pokemon -->
+    <script src="script.js"></script>
+  </body>
+</html>
